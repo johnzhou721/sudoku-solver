@@ -18,7 +18,7 @@ class SudokuSolver(toga.App):
             sudoku_box.add(subbox)
             for j in range(9):
                 subbox.add(toga.TextInput(
-                    id=f"{i},{j}",
+                    id=f"{i}-{j}",
                     width=50,
                     height=50,
                     font_size=20,
@@ -61,13 +61,13 @@ class SudokuSolver(toga.App):
                 self.main_window.info_dialog("Error importing", "Cannot import data: Malformed data, ", data)
                 return
             
-            self.main_window.widgets[f"{data[0]},{data[1]}"].value = str(data[2])
+            self.main_window.widgets[f"{data[0]}-{data[1]}"].value = str(data[2])
 
     def solve(self, widget):
         clues = []
         for i in range(9):
             for j in range(9):
-                widget = self.main_window.widgets[f"{i},{j}"]
+                widget = self.main_window.widgets[f"{i}-{j}"]
                 if widget.is_valid and widget.value:
                     clues.append((i + 1, j + 1, int(widget.value)))
 
@@ -78,12 +78,12 @@ class SudokuSolver(toga.App):
         
         for r1 in range(9):
             for c1 in range(9):
-                self.main_window.widgets[f"{r1},{c1}"].value = str(solution[r1][c1])
+                self.main_window.widgets[f"{r1}-{c1}"].value = str(solution[r1][c1])
 
     def clear(self, widget):
         for i in range(9):
             for j in range(9):
-                self.main_window.widgets[f"{i},{j}"].value = ""
+                self.main_window.widgets[f"{i}-{j}"].value = ""
 
 def main():
     return SudokuSolver()
